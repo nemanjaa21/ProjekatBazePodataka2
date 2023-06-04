@@ -1,0 +1,59 @@
+﻿<Window x:Class="G3_PR_108_2019_Nemanja_Malinovic.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:G3_PR_108_2019_Nemanja_Malinovic"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"  Loaded="Window_Loaded" Closing="Window_Closing">
+    <Window.Resources>
+        <CollectionViewSource x:Key="korisnikViewSource"/>
+        <CollectionViewSource x:Key="playListViewSource"/>
+        <CollectionViewSource x:Key="muzickiAlbumViewSource"/>
+        <CollectionViewSource x:Key="izvodjacViewSource"/>
+        <CollectionViewSource x:Key="soloIzvodjacViewSource"/>
+        <CollectionViewSource x:Key="grupaViewSource"/>
+        <CollectionViewSource x:Key="clanViewSource"/>
+        <CollectionViewSource x:Key="izdavackaKucaViewSource"/>
+        <CollectionViewSource x:Key="numeraViewSource"/>
+        <CollectionViewSource x:Key="zanrViewSource"/>
+    </Window.Resources>
+
+    <Grid>
+        <TabControl>
+            <TabItem Header="PlayListe">
+                <DataGrid x:Name="PlayListaDataGrid"
+                          AutoGenerateColumns="False"
+                          ItemsSource="{Binding Source={StaticResource playListViewSource}}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding IdPlay}" 
+                                            Header="Id"
+                                            IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding NazivPl}" 
+                                            Header="Naziv"/>
+                        <DataGridTextColumn Binding="{Binding IdKorisnika}"
+                                            Header="Id Korisnika"/>
+                        <DataGridTextColumn Binding="{Binding Ids}"
+                                            Header="Lista numera"/>
+                        <!--<DataGridTemplateColumn Header="Lista numera">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ItemsControl ItemsSource="{Binding Ids}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding}" Margin="2"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>-->
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+        <Button Content="Snimanje" 
+                HorizontalAlignment="Right" VerticalAlignment="Bottom" 
+                Height="20" Width="80" Margin="10,10,10,10" Click="Button_Click"/>
+    </Grid>
+</Window>

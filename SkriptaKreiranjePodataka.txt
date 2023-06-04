@@ -1,0 +1,105 @@
+-- Brisanje tabela ako već postoje
+DROP TABLE IF EXISTS SadrziPlayNum;
+DROP TABLE IF EXISTS ImaZanr;
+DROP TABLE IF EXISTS Clan;
+DROP TABLE IF EXISTS Grupa;
+DROP TABLE IF EXISTS SoloIzvodjac;
+DROP TABLE IF EXISTS Zanr;
+DROP TABLE IF EXISTS Numera;
+DROP TABLE IF EXISTS PlayLista;
+DROP TABLE IF EXISTS Izvodjac;
+DROP TABLE IF EXISTS Korisnik;
+DROP TABLE IF EXISTS MuzickiAlbum;
+DROP TABLE IF EXISTS IzdavackaKuca;
+
+-- Kreiranje tabela
+CREATE TABLE Izvodjac (
+  IdIzv INT PRIMARY KEY,
+  ImeIzv VARCHAR(255),
+  DatumPocetka DATE
+);
+
+CREATE TABLE IzdavackaKuca (
+  IdK INT PRIMARY KEY,
+  NazivK VARCHAR(255),
+  DatumOsn DATE
+);
+
+CREATE TABLE MuzickiAlbum (
+  IdM INT PRIMARY KEY,
+  TrajanjeM TIME,
+  DatumIzM DATE,
+  IdK INT,
+  FOREIGN KEY (IdK) REFERENCES IzdavackaKuca (IdK)
+);
+
+
+CREATE TABLE Numera (
+  IdNum INT,
+  IdIzv INT,
+  NazivN VARCHAR(255),
+  DatumIz DATE,
+  TrajanjeN TIME,
+  Ocena FLOAT,
+  PRIMARY KEY (IdNum, IdIzv),
+  FOREIGN KEY (IdIzv) REFERENCES Izvodjac (IdIzv)
+);
+
+CREATE TABLE SoloIzvodjac (
+  IdIzv INT PRIMARY KEY,
+  BrNS INT,
+  FOREIGN KEY (IdIzv) REFERENCES Izvodjac (IdIzv)
+);
+
+CREATE TABLE Grupa (
+  IdIzv INT PRIMARY KEY,
+  BrNG INT,
+  FOREIGN KEY (IdIzv) REFERENCES Izvodjac (IdIzv)
+);
+
+CREATE TABLE Clan (
+  IdCl INT PRIMARY KEY,
+  Uloga VARCHAR(255),
+  IdIzv INT,
+  FOREIGN KEY (IdIzv) REFERENCES Grupa (IdIzv)
+);
+
+CREATE TABLE Zanr (
+  IdZ INT PRIMARY KEY,
+  ImeZ VARCHAR(255),
+  Vek VARCHAR(255)
+);
+
+CREATE TABLE ImaZanr (
+  IdNum INT,
+  IdIzv INT,
+  IdZ INT,
+  PRIMARY KEY (IdNum, IdIzv, IdZ),
+  FOREIGN KEY (IdNum, IdIzv) REFERENCES Numera (IdNum, IdIzv),
+  FOREIGN KEY (IdZ) REFERENCES Zanr (IdZ)
+);
+
+CREATE TABLE Korisnik (
+  IdKorisnika INT PRIMARY KEY,
+  Ime VARCHAR(255),
+  Prezime VARCHAR(255),
+  KorisnickoIme VARCHAR(255),
+  Lozinka VARCHAR(255),
+  Pretplacen BIT
+);
+
+CREATE TABLE PlayLista (
+  IdPlay INT PRIMARY KEY,
+  NazivPl VARCHAR(255),
+  IdKorisnika INT,
+  FOREIGN KEY (IdKorisnika) REFERENCES Korisnik (IdKorisnika)
+);
+
+CREATE TABLE SadrziPlayNum (
+  IdPlay INT,
+  IdNum INT,
+  IdIzv INT,
+  PRIMARY KEY (IdPlay, IdNum, IdIzv),
+  FOREIGN KEY (IdPlay) REFERENCES PlayLista (IdPlay),
+  FOREIGN KEY (IdNum, IdIzv) REFERENCES Numera (IdNum, IdIzv)
+);

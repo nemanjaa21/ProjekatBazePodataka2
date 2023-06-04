@@ -1,0 +1,71 @@
+-- Insert data into Izvodjac table
+INSERT INTO Izvodjac (IdIzv, ImeIzv, DatumPocetka)
+VALUES
+  (1, 'Izvodjac 1', '2022-01-01'),
+  (2, 'Izvodjac 2', '2022-02-01');
+
+-- Insert data into IzdavackaKuca table
+INSERT INTO IzdavackaKuca (IdK, NazivK, DatumOsn)
+VALUES
+  (1, 'Izdavacka Kuca 1', '2022-01-01'),
+  (2, 'Izdavacka Kuca 2', '2022-02-01');
+
+-- Insert data into MuzickiAlbum table
+INSERT INTO MuzickiAlbum (IdM, TrajanjeM, DatumIzM, IdK)
+VALUES
+  (1, '00:30:00', '2022-01-01', 1),
+  (2, '01:00:00', '2022-02-01', 2);
+
+-- Insert data into Numera table
+INSERT INTO Numera (IdNum, IdIzv, NazivN, DatumIz, TrajanjeN, Ocena)
+VALUES
+  (1, 1, 'Numera 1', '2022-01-01', '00:03:30', 4.5),
+  (2, 2, 'Numera 2', '2022-02-01', '00:04:15', 4.2);
+
+-- Insert data into SoloIzvodjac table
+INSERT INTO SoloIzvodjac (IdIzv, BrNS)
+VALUES
+  (1, 1),
+  (2, 2);
+
+-- Insert data into Grupa table
+INSERT INTO Grupa (IdIzv, BrNG)
+VALUES
+  (1, 3),
+  (2, 4);
+
+-- Insert data into Clan table
+INSERT INTO Clan (IdCl, Uloga, IdIzv)
+VALUES
+  (1, 'Uloga 1', 1),
+  (2, 'Uloga 2', 2);
+
+-- Insert data into Zanr table
+INSERT INTO Zanr (IdZ, ImeZ, Vek)
+VALUES
+  (1, 'Zanr 1', '20th Century'),
+  (2, 'Zanr 2', '21st Century');
+
+-- Insert data into ImaZanr table
+INSERT INTO ImaZanr (IdNum, IdIzv, IdZ)
+VALUES
+  (1, 1, 1),
+  (2, 2, 2);
+
+-- Insert data into Korisnik table
+INSERT INTO Korisnik (IdKorisnika, Ime, Prezime, KorisnickoIme, Lozinka, Pretplacen)
+VALUES
+  (1, 'Korisnik 1', 'Prezime 1', 'korisnik1', 'lozinka1', 1),
+  (2, 'Korisnik 2', 'Prezime 2', 'korisnik2', 'lozinka2', 0);
+
+-- Insert data into PlayLista table
+INSERT INTO PlayLista (IdPlay, NazivPl, IdKorisnika)
+VALUES
+  (1, 'Playlist 1', 1),
+  (2, 'Playlist 2', 2);
+
+-- Insert data into SadrziPlayNum table
+INSERT INTO SadrziPlayNum (IdPlay, IdNum, IdIzv)
+VALUES
+  (1, 1, 1),
+  (2, 2, 2);
