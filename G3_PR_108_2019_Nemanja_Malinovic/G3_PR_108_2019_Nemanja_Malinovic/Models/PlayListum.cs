@@ -13,5 +13,5 @@ public partial class PlayListum
 
     public virtual Korisnik? IdKorisnikaNavigation { get; set; }
 
-    public virtual ICollection<Numera> Ids { get; set; } = new List<Numera>();
+    public virtual ICollection<SadrziPlayNum> SadrziPlayNums { get; set; } = new List<SadrziPlayNum>();
 }

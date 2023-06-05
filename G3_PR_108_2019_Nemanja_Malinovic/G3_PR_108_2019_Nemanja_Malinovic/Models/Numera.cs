@@ -19,7 +19,7 @@ public partial class Numera
 
     public virtual Izvodjac IdIzvNavigation { get; set; } = null!;
 
-    public virtual ICollection<PlayListum> IdPlays { get; set; } = new List<PlayListum>();
+    public virtual ICollection<ImaZanr> ImaZanrs { get; set; } = new List<ImaZanr>();
 
-    public virtual ICollection<Zanr> IdZs { get; set; } = new List<Zanr>();
+    public virtual ICollection<SadrziPlayNum> SadrziPlayNums { get; set; } = new List<SadrziPlayNum>();
 }

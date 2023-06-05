@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:G3_PR_108_2019_Nemanja_Malinovic"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"  Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="MainWindow" Height="450" Width="950" Loaded="Window_Loaded" Closing="Window_Closing" >
     <Window.Resources>
         <CollectionViewSource x:Key="korisnikViewSource"/>
         <CollectionViewSource x:Key="playListViewSource"/>
@@ -17,40 +17,192 @@
         <CollectionViewSource x:Key="izdavackaKucaViewSource"/>
         <CollectionViewSource x:Key="numeraViewSource"/>
         <CollectionViewSource x:Key="zanrViewSource"/>
+        <CollectionViewSource x:Key="sadrziPlayNumViewSource"/>
+        <CollectionViewSource x:Key="imaZanrViewSource"/>
     </Window.Resources>
 
     <Grid>
         <TabControl>
-            <TabItem Header="PlayListe">
+            <TabItem Header="Korisnici">
+                <DataGrid x:Name="KorisniciDataGrid"
+                          AutoGenerateColumns="False"
+                          ItemsSource="{Binding Source={StaticResource korisnikViewSource}}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding IdKorisnika}" 
+                                            Header="Id"/>
+                        <DataGridTextColumn Binding="{Binding Ime}" 
+                                            Header="Ime"/>
+                        <DataGridTextColumn Binding="{Binding Prezime}"
+                                            Header="Prezime"/>
+                        <DataGridTextColumn Binding="{Binding KorisnickoIme}"
+                                            Header="Korisnicko ime"/>
+                        <DataGridTextColumn Binding="{Binding Pretplacen}"
+                                            Header="Pretplacen"/>
+                        
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Play liste">
                 <DataGrid x:Name="PlayListaDataGrid"
                           AutoGenerateColumns="False"
                           ItemsSource="{Binding Source={StaticResource playListViewSource}}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding IdPlay}" 
-                                            Header="Id"
-                                            IsReadOnly="True"/>
+                                            Header="Id"/>
                         <DataGridTextColumn Binding="{Binding NazivPl}" 
                                             Header="Naziv"/>
                         <DataGridTextColumn Binding="{Binding IdKorisnika}"
                                             Header="Id Korisnika"/>
-                        <DataGridTextColumn Binding="{Binding Ids}"
-                                            Header="Lista numera"/>
-                        <!--<DataGridTemplateColumn Header="Lista numera">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ItemsControl ItemsSource="{Binding Ids}">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding}" Margin="2"/>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>-->
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
+            <TabItem Header="Numere">
+                <DataGrid x:Name="NumereDataGrid"
+                          AutoGenerateColumns="False"
+                          ItemsSource="{Binding Source={StaticResource numeraViewSource}}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding IdNum}" 
+                                            Header="Id numere"/>
+                        <DataGridTextColumn Binding="{Binding IdIzv}" 
+                                            Header="Id izvodjaca"/>
+                        <DataGridTextColumn Binding="{Binding NazivN}"
+                                            Header="Naziv numere"/>
+                        <DataGridTextColumn Binding="{Binding DatumIz}"
+                                            Header="Datum izdavanja"/>
+                        <DataGridTextColumn Binding="{Binding TrajanjeN}"
+                                            Header="Trajanje numere"/>
+                        <DataGridTextColumn Binding="{Binding Ocena}"
+                                            Header="Ocena"/>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Numere na playlistama">
+                <DataGrid x:Name="NumereNaPlayDataGrid"
+                          AutoGenerateColumns="False"
+                          ItemsSource="{Binding Source={StaticResource sadrziPlayNumViewSource}}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding IdPlay}" 
+                                            Header="Id play liste"/>
+                        <DataGridTextColumn Binding="{Binding IdNum}" 
+                                            Header="Id numere"/>
+                        <DataGridTextColumn Binding="{Binding IdIzv}"
+                                            Header="Id izvodjaca"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Zanrovi">
+                <DataGrid x:Name="ZanroviDataGrid"
+                          AutoGenerateColumns="False"
+                          ItemsSource="{Binding Source={StaticResource zanrViewSource}}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding IdZ}" 
+                                            Header="Id zanra"/>
+                        <DataGridTextColumn Binding="{Binding ImeZ}" 
+                                            Header="Ime zanra"/>
+                        <DataGridTextColumn Binding="{Binding Vek}"
+                                            Header="Vek"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Zanr za svaku numeru">
+                <DataGrid x:Name="ZanrNumeraDataGrid"
+                          AutoGenerateColumns="False"
+                          ItemsSource="{Binding Source={StaticResource imaZanrViewSource}}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding IdNum}" 
+                                            Header="Id numere"/>
+                        <DataGridTextColumn Binding="{Binding IdIzv}" 
+                                            Header="Id izvodjaca"/>
+                        <DataGridTextColumn Binding="{Binding IdZ}"
+                                            Header="Id zanra"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Izvodjaci">
+                <DataGrid x:Name="IzvodjacDataGrid"
+                          AutoGenerateColumns="False"
+                          ItemsSource="{Binding Source={StaticResource izvodjacViewSource}}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding IdIzv}" 
+                                            Header="Id izvodjaca"/>
+                        <DataGridTextColumn Binding="{Binding ImeIzv}" 
+                                            Header="Ime izvodjaca"/>
+                        <DataGridTextColumn Binding="{Binding DatumPocetka}"
+                                            Header="Datum pocetka karijere"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Solo izvodjaci">
+                <DataGrid x:Name="SoloIzvodjacDataGrid"
+                          AutoGenerateColumns="False"
+                          ItemsSource="{Binding Source={StaticResource soloIzvodjacViewSource}}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding IdIzv}" 
+                                            Header="Id solo izvodjaca"/>
+                        <DataGridTextColumn Binding="{Binding BrNs}" 
+                                            Header="Broj numera solo izvodjaca"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Grupe">
+                <DataGrid x:Name="GrupaIzvodjacDataGrid"
+                          AutoGenerateColumns="False"
+                          ItemsSource="{Binding Source={StaticResource grupaViewSource}}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding IdIzv}" 
+                                            Header="Id grupe"/>
+                        <DataGridTextColumn Binding="{Binding BrNg}" 
+                                            Header="Broj numera grupe"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Clanovi grupe">
+                <DataGrid x:Name="ClanDataGrid"
+                          AutoGenerateColumns="False"
+                          ItemsSource="{Binding Source={StaticResource clanViewSource}}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding IdCl}" 
+                                            Header="Id clana"/>
+                        <DataGridTextColumn Binding="{Binding Uloga}" 
+                                            Header="Uloga"/>
+                        <DataGridTextColumn Binding="{Binding IdIzv}" 
+                                            Header="Id grupe"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Muzicki album">
+                <DataGrid x:Name="MuzickiAlbumDataGrid"
+                          AutoGenerateColumns="False"
+                          ItemsSource="{Binding Source={StaticResource muzickiAlbumViewSource}}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding IdM}" 
+                                            Header="Id muzickog albuma"/>
+                        <DataGridTextColumn Binding="{Binding TrajanjeM}" 
+                                            Header="Vreme trajanja muzickog albuma"/>
+                        <DataGridTextColumn Binding="{Binding DatumIzM}"
+                                            Header="Datum izdavanja muzickog albuma"/>
+                        <DataGridTextColumn Binding="{Binding IdK}"
+                                            Header="Id izdavacke kuce"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Izdavacka kuca">
+                <DataGrid x:Name="IzdavackaKucaDataGrid"
+                          AutoGenerateColumns="False"
+                          ItemsSource="{Binding Source={StaticResource izdavackaKucaViewSource}}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding IdK}" 
+                                            Header="Id izdavacke kuce"/>
+                        <DataGridTextColumn Binding="{Binding NazivK}" 
+                                            Header="Naziv izdavacke kuce"/>
+                        <DataGridTextColumn Binding="{Binding DatumOsn}"
+                                            Header="Datum osnovanja izdavacke kuce"/>
+                        
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            
         </TabControl>
         <Button Content="Snimanje" 
                 HorizontalAlignment="Right" VerticalAlignment="Bottom" 

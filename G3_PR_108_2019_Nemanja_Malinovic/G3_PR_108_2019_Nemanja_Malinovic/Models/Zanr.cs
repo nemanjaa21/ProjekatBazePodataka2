@@ -11,5 +11,5 @@ public partial class Zanr
 
     public string? Vek { get; set; }
 
-    public virtual ICollection<Numera> Ids { get; set; } = new List<Numera>();
+    public virtual ICollection<ImaZanr> ImaZanrs { get; set; } = new List<ImaZanr>();
 }

@@ -19,6 +19,8 @@ public partial class Baze2Context : DbContext
 
     public virtual DbSet<Grupa> Grupas { get; set; }
 
+    public virtual DbSet<ImaZanr> ImaZanrs { get; set; }
+
     public virtual DbSet<IzdavackaKuca> IzdavackaKucas { get; set; }
 
     public virtual DbSet<Izvodjac> Izvodjacs { get; set; }
@@ -30,6 +32,8 @@ public partial class Baze2Context : DbContext
     public virtual DbSet<Numera> Numeras { get; set; }
 
     public virtual DbSet<PlayListum> PlayLista { get; set; }
+
+    public virtual DbSet<SadrziPlayNum> SadrziPlayNums { get; set; }
 
     public virtual DbSet<SoloIzvodjac> SoloIzvodjacs { get; set; }
 
@@ -43,7 +47,7 @@ public partial class Baze2Context : DbContext
     {
         modelBuilder.Entity<Clan>(entity =>
         {
-            entity.HasKey(e => e.IdCl).HasName("PK__Clan__B77390AF9D0B4DBF");
+            entity.HasKey(e => e.IdCl).HasName("PK__Clan__B77390AF7489363F");
 
             entity.ToTable("Clan");
 
@@ -54,12 +58,12 @@ public partial class Baze2Context : DbContext
 
             entity.HasOne(d => d.IdIzvNavigation).WithMany(p => p.Clans)
                 .HasForeignKey(d => d.IdIzv)
-                .HasConstraintName("FK__Clan__IdIzv__1EA48E88");
+                .HasConstraintName("FK__Clan__IdIzv__075714DC");
         });
 
         modelBuilder.Entity<Grupa>(entity =>
         {
-            entity.HasKey(e => e.IdIzv).HasName("PK__Grupa__0C1B5EE21D5C0773");
+            entity.HasKey(e => e.IdIzv).HasName("PK__Grupa__0C1B5EE250A15008");
 
             entity.ToTable("Grupa");
 
@@ -69,12 +73,29 @@ public partial class Baze2Context : DbContext
             entity.HasOne(d => d.IdIzvNavigation).WithOne(p => p.Grupa)
                 .HasForeignKey<Grupa>(d => d.IdIzv)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Grupa__IdIzv__1BC821DD");
+                .HasConstraintName("FK__Grupa__IdIzv__047AA831");
+        });
+
+        modelBuilder.Entity<ImaZanr>(entity =>
+        {
+            entity.HasKey(e => e.IdImaZanr).HasName("IMAZ_PK");
+
+            entity.ToTable("ImaZanr");
+
+            entity.HasIndex(e => new { e.IdNum, e.IdIzv, e.IdZ }, "IMAZ_UN").IsUnique();
+
+            entity.HasOne(d => d.IdZNavigation).WithMany(p => p.ImaZanrs)
+                .HasForeignKey(d => d.IdZ)
+                .HasConstraintName("FK__ImaZanr__IdZ__0E04126B");
+
+            entity.HasOne(d => d.Id).WithMany(p => p.ImaZanrs)
+                .HasForeignKey(d => new { d.IdNum, d.IdIzv })
+                .HasConstraintName("FK__ImaZanr__0D0FEE32");
         });
 
         modelBuilder.Entity<IzdavackaKuca>(entity =>
         {
-            entity.HasKey(e => e.IdK).HasName("PK__Izdavack__C496000BB8B15A5F");
+            entity.HasKey(e => e.IdK).HasName("PK__Izdavack__C496000BC5735FBF");
 
             entity.ToTable("IzdavackaKuca");
 
@@ -87,7 +108,7 @@ public partial class Baze2Context : DbContext
 
         modelBuilder.Entity<Izvodjac>(entity =>
         {
-            entity.HasKey(e => e.IdIzv).HasName("PK__Izvodjac__0C1B5EE20557B063");
+            entity.HasKey(e => e.IdIzv).HasName("PK__Izvodjac__0C1B5EE293F06ACC");
 
             entity.ToTable("Izvodjac");
 
@@ -100,7 +121,7 @@ public partial class Baze2Context : DbContext
 
         modelBuilder.Entity<Korisnik>(entity =>
         {
-            entity.HasKey(e => e.IdKorisnika).HasName("PK__Korisnik__703CA70A4E9757D1");
+            entity.HasKey(e => e.IdKorisnika).HasName("PK__Korisnik__703CA70A79F6A621");
 
             entity.ToTable("Korisnik");
 
@@ -121,7 +142,7 @@ public partial class Baze2Context : DbContext
 
         modelBuilder.Entity<MuzickiAlbum>(entity =>
         {
-            entity.HasKey(e => e.IdM).HasName("PK__MuzickiA__C496000952F1AA4A");
+            entity.HasKey(e => e.IdM).HasName("PK__MuzickiA__C496000960AF24A3");
 
             entity.ToTable("MuzickiAlbum");
 
@@ -130,12 +151,12 @@ public partial class Baze2Context : DbContext
 
             entity.HasOne(d => d.IdKNavigation).WithMany(p => p.MuzickiAlbums)
                 .HasForeignKey(d => d.IdK)
-                .HasConstraintName("FK__MuzickiAlbu__IdK__1332DBDC");
+                .HasConstraintName("FK__MuzickiAlbu__IdK__7BE56230");
         });
 
         modelBuilder.Entity<Numera>(entity =>
         {
-            entity.HasKey(e => new { e.IdNum, e.IdIzv }).HasName("PK__Numera__3D116AE5FB1F23D0");
+            entity.HasKey(e => new { e.IdNum, e.IdIzv }).HasName("PK__Numera__3D116AE52236DB19");
 
             entity.ToTable("Numera");
 
@@ -147,29 +168,12 @@ public partial class Baze2Context : DbContext
             entity.HasOne(d => d.IdIzvNavigation).WithMany(p => p.Numeras)
                 .HasForeignKey(d => d.IdIzv)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Numera__IdIzv__160F4887");
-
-            entity.HasMany(d => d.IdZs).WithMany(p => p.Ids)
-                .UsingEntity<Dictionary<string, object>>(
-                    "ImaZanr",
-                    r => r.HasOne<Zanr>().WithMany()
-                        .HasForeignKey("IdZ")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__ImaZanr__IdZ__245D67DE"),
-                    l => l.HasOne<Numera>().WithMany()
-                        .HasForeignKey("IdNum", "IdIzv")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__ImaZanr__236943A5"),
-                    j =>
-                    {
-                        j.HasKey("IdNum", "IdIzv", "IdZ").HasName("PK__ImaZanr__20D5FCE5FBBD786F");
-                        j.ToTable("ImaZanr");
-                    });
+                .HasConstraintName("FK__Numera__IdIzv__7EC1CEDB");
         });
 
         modelBuilder.Entity<PlayListum>(entity =>
         {
-            entity.HasKey(e => e.IdPlay).HasName("PK__PlayList__FB810293CB8B589C");
+            entity.HasKey(e => e.IdPlay).HasName("PK__PlayList__FB810293AE7DE927");
 
             entity.Property(e => e.IdPlay).ValueGeneratedNever();
             entity.Property(e => e.NazivPl)
@@ -178,29 +182,29 @@ public partial class Baze2Context : DbContext
 
             entity.HasOne(d => d.IdKorisnikaNavigation).WithMany(p => p.PlayLista)
                 .HasForeignKey(d => d.IdKorisnika)
-                .HasConstraintName("FK__PlayLista__IdKor__29221CFB");
+                .HasConstraintName("FK__PlayLista__IdKor__12C8C788");
+        });
 
-            entity.HasMany(d => d.Ids).WithMany(p => p.IdPlays)
-                .UsingEntity<Dictionary<string, object>>(
-                    "SadrziPlayNum",
-                    r => r.HasOne<Numera>().WithMany()
-                        .HasForeignKey("IdNum", "IdIzv")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__SadrziPlayNum__2CF2ADDF"),
-                    l => l.HasOne<PlayListum>().WithMany()
-                        .HasForeignKey("IdPlay")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__SadrziPla__IdPla__2BFE89A6"),
-                    j =>
-                    {
-                        j.HasKey("IdPlay", "IdNum", "IdIzv").HasName("PK__SadrziPl__B850143D9925C23C");
-                        j.ToTable("SadrziPlayNum");
-                    });
+        modelBuilder.Entity<SadrziPlayNum>(entity =>
+        {
+            entity.HasKey(e => e.IdPlayNum).HasName("SADRZIPN_PK");
+
+            entity.ToTable("SadrziPlayNum");
+
+            entity.HasIndex(e => new { e.IdPlay, e.IdNum, e.IdIzv }, "SADRZIPN_UN").IsUnique();
+
+            entity.HasOne(d => d.IdPlayNavigation).WithMany(p => p.SadrziPlayNums)
+                .HasForeignKey(d => d.IdPlay)
+                .HasConstraintName("FK__SadrziPla__IdPla__1699586C");
+
+            entity.HasOne(d => d.Id).WithMany(p => p.SadrziPlayNums)
+                .HasForeignKey(d => new { d.IdNum, d.IdIzv })
+                .HasConstraintName("FK__SadrziPlayNum__178D7CA5");
         });
 
         modelBuilder.Entity<SoloIzvodjac>(entity =>
         {
-            entity.HasKey(e => e.IdIzv).HasName("PK__SoloIzvo__0C1B5EE22A0CC4F0");
+            entity.HasKey(e => e.IdIzv).HasName("PK__SoloIzvo__0C1B5EE2A468601A");
 
             entity.ToTable("SoloIzvodjac");
 
@@ -210,12 +214,12 @@ public partial class Baze2Context : DbContext
             entity.HasOne(d => d.IdIzvNavigation).WithOne(p => p.SoloIzvodjac)
                 .HasForeignKey<SoloIzvodjac>(d => d.IdIzv)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__SoloIzvod__IdIzv__18EBB532");
+                .HasConstraintName("FK__SoloIzvod__IdIzv__019E3B86");
         });
 
         modelBuilder.Entity<Zanr>(entity =>
         {
-            entity.HasKey(e => e.IdZ).HasName("PK__Zanr__C496001CF6FA0232");
+            entity.HasKey(e => e.IdZ).HasName("PK__Zanr__C496001C5CAC4665");
 
             entity.ToTable("Zanr");
 

@@ -71,10 +71,12 @@ CREATE TABLE Zanr (
 );
 
 CREATE TABLE ImaZanr (
+  IdImaZanr INT IDENTITY(1,1),
   IdNum INT,
   IdIzv INT,
   IdZ INT,
-  PRIMARY KEY (IdNum, IdIzv, IdZ),
+  CONSTRAINT IMAZ_PK PRIMARY KEY (IdImaZanr),
+  CONSTRAINT IMAZ_UN UNIQUE (IdNum,IdIzv, IdZ),
   FOREIGN KEY (IdNum, IdIzv) REFERENCES Numera (IdNum, IdIzv),
   FOREIGN KEY (IdZ) REFERENCES Zanr (IdZ)
 );
@@ -96,10 +98,12 @@ CREATE TABLE PlayLista (
 );
 
 CREATE TABLE SadrziPlayNum (
+  IdPlayNum INT IDENTITY(1,1),
   IdPlay INT,
   IdNum INT,
   IdIzv INT,
-  PRIMARY KEY (IdPlay, IdNum, IdIzv),
+  CONSTRAINT SADRZIPN_PK PRIMARY KEY (IdPlayNum),
+  CONSTRAINT SADRZIPN_UN UNIQUE (IdPlay, IdNum, IdIzv),
   FOREIGN KEY (IdPlay) REFERENCES PlayLista (IdPlay),
   FOREIGN KEY (IdNum, IdIzv) REFERENCES Numera (IdNum, IdIzv)
 );

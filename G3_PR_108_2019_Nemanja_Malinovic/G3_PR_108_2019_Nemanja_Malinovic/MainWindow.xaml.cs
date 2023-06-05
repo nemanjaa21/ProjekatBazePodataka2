@@ -37,8 +37,10 @@ namespace G3_PR_108_2019_Nemanja_Malinovic
         private CollectionViewSource izdavackaKucaViewSource = new CollectionViewSource();
         private CollectionViewSource numeraViewSource = new CollectionViewSource();
         private CollectionViewSource zanrViewSource = new CollectionViewSource();
+        private CollectionViewSource sadrziPlayNumViewSource = new CollectionViewSource();
+        private CollectionViewSource imaZanrViewSource = new CollectionViewSource();
 
-        
+
 
         public MainWindow()
         {
@@ -53,6 +55,8 @@ namespace G3_PR_108_2019_Nemanja_Malinovic
             izdavackaKucaViewSource = (CollectionViewSource)FindResource(nameof(izdavackaKucaViewSource));
             numeraViewSource = (CollectionViewSource)FindResource(nameof(numeraViewSource));
             zanrViewSource = (CollectionViewSource)FindResource(nameof(zanrViewSource));
+            sadrziPlayNumViewSource = (CollectionViewSource)FindResource(nameof(sadrziPlayNumViewSource));
+            imaZanrViewSource = (CollectionViewSource)FindResource(nameof(imaZanrViewSource));
 
         }
 
@@ -68,19 +72,23 @@ namespace G3_PR_108_2019_Nemanja_Malinovic
             context.IzdavackaKucas.Load();
             context.Numeras.Load();
             context.Zanrs.Load();
+            context.SadrziPlayNums.Load();
+            context.ImaZanrs.Load();
 
             korisnikViewSource.Source = context.Korisniks.Local.ToObservableCollection();
             playListViewSource.Source = context.PlayLista.Local.ToObservableCollection();
             muzickiAlbumViewSource.Source = context.MuzickiAlbums.Local.ToObservableCollection();
-            izvodjacViewSource.Source = context.IzdavackaKucas.Local.ToObservableCollection();
+            izvodjacViewSource.Source = context.Izvodjacs.Local.ToObservableCollection();
             soloIzvodjacViewSource.Source = context.SoloIzvodjacs.Local.ToObservableCollection();
             grupaViewSource.Source = context.Grupas.Local.ToObservableCollection();
             clanViewSource.Source = context.Clans.Local.ToObservableCollection();
             izdavackaKucaViewSource.Source = context.IzdavackaKucas.Local.ToObservableCollection();
             numeraViewSource.Source = context.Numeras.Local.ToObservableCollection();
             zanrViewSource.Source = context.Zanrs.Local.ToObservableCollection();
+            sadrziPlayNumViewSource.Source = context.SadrziPlayNums.Local.ToObservableCollection();
+            imaZanrViewSource.Source = context.ImaZanrs.Local.ToObservableCollection();
 
-            
+
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -91,8 +99,19 @@ namespace G3_PR_108_2019_Nemanja_Malinovic
         {
             int n = context.SaveChanges();
 
+            KorisniciDataGrid.Items.Refresh();
             PlayListaDataGrid.Items.Refresh();
-            
+            NumereDataGrid.Items.Refresh();
+            NumereNaPlayDataGrid.Items.Refresh();
+            ZanroviDataGrid.Items.Refresh();
+            ZanrNumeraDataGrid.Items.Refresh();
+            IzvodjacDataGrid.Items.Refresh();
+            SoloIzvodjacDataGrid.Items.Refresh();
+            GrupaIzvodjacDataGrid.Items.Refresh();
+            MuzickiAlbumDataGrid.Items.Refresh();
+            IzdavackaKucaDataGrid.Items.Refresh();
+            ClanDataGrid.Items.Refresh();
+
 
             MessageBox.Show("Broj izvršenih zapisa: " + n, "Snimanje");
         }
