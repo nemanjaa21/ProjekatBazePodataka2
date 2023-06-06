@@ -13,20 +13,16 @@ VALUES (1, '04:30:00', '2022-03-15', 1),
 (2, '03:15:00', '2021-08-10', 2),
 (3, '05:00:00', '2023-01-20', 3);
 
-INSERT INTO Numera (IdNum, IdIzv, NazivN, DatumIz, TrajanjeN, Ocena)
-VALUES (1, 1, 'Numera1', '2022-04-01', '00:03:30', 4.5),
-(2, 2, 'Numera2', '2021-09-20', '00:04:15', 3.8),
-(3, 3, 'Numera3', '2023-02-10', '00:05:45', 4.2);
+INSERT INTO Numera (IdNum, IdIzv, NazivN, DatumIz, TrajanjeN, Ocena,IdM)
+VALUES (1, 1, 'Numera1', '2022-04-01', '00:03:30', 4.5 , null),
+(2, 2, 'Numera2', '2021-09-20', '00:04:15', 3.8 , 1),
+(3, 3, 'Numera3', '2023-02-10', '00:05:45', 4.2 , 3);
 
 INSERT INTO SoloIzvodjac (IdIzv, BrNS)
-VALUES (1, 5),
-(2, 3),
-(3, 2);
+VALUES (1, 5);
 
 INSERT INTO Grupa (IdIzv, BrNG)
-VALUES (4, 4),
-(5, 6),
-(6, 3);
+VALUES (2, 4);
 
 INSERT INTO Clan (IdCl, Uloga, IdIzv)
 VALUES (1, 'Uloga1', 4),
@@ -57,3 +53,8 @@ INSERT INTO SadrziPlayNum (IdPlay, IdNum, IdIzv)
 VALUES (1, 1, 1),
 (2, 2, 2),
 (3, 3, 3);
+
+INSERT INTO Clan (IdCl, Uloga, IdIzv)
+VALUES (1, 'Gitarista', 2),
+       (2, 'Tamburas', 2),
+       (3, 'Pevac', 2);

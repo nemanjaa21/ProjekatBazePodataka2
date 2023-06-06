@@ -17,7 +17,11 @@ public partial class Numera
 
     public double? Ocena { get; set; }
 
+    public int? IdM { get; set; }
+
     public virtual Izvodjac IdIzvNavigation { get; set; } = null!;
+
+    public virtual MuzickiAlbum? IdMNavigation { get; set; }
 
     public virtual ICollection<ImaZanr> ImaZanrs { get; set; } = new List<ImaZanr>();
 

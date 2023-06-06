@@ -1,0 +1,24 @@
+CREATE OR ALTER TRIGGER trg_AzurirajTrajanjeM
+ON Numera
+AFTER INSERT, UPDATE, DELETE
+AS
+BEGIN
+  DECLARE @IdM INT;
+
+  -- Dobijanje IdMuzickogAlbuma povezanog sa promenjenom numerom
+  SELECT IdM = @IdM
+  FROM inserted
+  WHERE @IdM IS NOT NULL;
+
+  IF @IdM IS NOT NULL
+  BEGIN
+    -- Ažuriranje trajanja muzičkog albuma
+    UPDATE MuzickiAlbum
+    SET TrajanjeM = (
+      SELECT CONVERT(TIME, DATEADD(SECOND, SUM(DATEDIFF(SECOND, '00:00:00', CONVERT(TIME, TrajanjeN))), '00:00:00'))
+      FROM Numera
+      WHERE IdM = @IdM
+    )
+    WHERE IdM = @IdM;
+  END
+END

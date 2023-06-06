@@ -41,8 +41,10 @@ CREATE TABLE Numera (
   DatumIz DATE,
   TrajanjeN TIME,
   Ocena FLOAT,
+  IdM INT,
   PRIMARY KEY (IdNum, IdIzv),
-  FOREIGN KEY (IdIzv) REFERENCES Izvodjac (IdIzv)
+  FOREIGN KEY (IdIzv) REFERENCES Izvodjac (IdIzv),
+  FOREIGN KEY (IdM) REFERENCES MuzickiAlbum (IdM)
 );
 
 CREATE TABLE SoloIzvodjac (

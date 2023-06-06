@@ -14,4 +14,6 @@ public partial class MuzickiAlbum
     public int? IdK { get; set; }
 
     public virtual IzdavackaKuca? IdKNavigation { get; set; }
+
+    public virtual ICollection<Numera> Numeras { get; set; } = new List<Numera>();
 }

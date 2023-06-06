@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:G3_PR_108_2019_Nemanja_Malinovic"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="950" Loaded="Window_Loaded" Closing="Window_Closing" >
+        Title="MainWindow" Height="450" Width="950" Loaded="Window_Loaded" Closing="Window_Closing">
     <Window.Resources>
         <CollectionViewSource x:Key="korisnikViewSource"/>
         <CollectionViewSource x:Key="playListViewSource"/>
@@ -73,6 +73,8 @@
                                             Header="Trajanje numere"/>
                         <DataGridTextColumn Binding="{Binding Ocena}"
                                             Header="Ocena"/>
+                        <DataGridTextColumn Binding="{Binding IdM}"
+                                            Header="Id muzickog albuma"/>
 
                     </DataGrid.Columns>
                 </DataGrid>
