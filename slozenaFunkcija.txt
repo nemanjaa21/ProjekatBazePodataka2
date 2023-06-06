@@ -1,0 +1,28 @@
+CREATE FUNCTION BrojPesamaIzdavackeKucePoZanru
+(
+    @IzdavackaKucaId INT,
+    @ZanrId INT
+)
+RETURNS INT
+AS
+BEGIN
+    DECLARE @BrojPesama INT;
+
+    SELECT @BrojPesama = COUNT(DISTINCT I.IdNum)
+    FROM ImaZanr I
+    INNER JOIN Numera N ON I.IdNum = N.IdNum AND I.IdIzv = N.IdIzv
+    WHERE I.IdZ = @ZanrId
+    AND N.IdM IN (
+        SELECT IdM
+        FROM MuzickiAlbum
+        WHERE IdK = @IzdavackaKucaId
+    );
+
+    RETURN @BrojPesama;
+END
+
+-- vraća broj pesama koje izdavačka kuća ima u određenom žanru:
+
+SELECT I.IdK AS IzdavackaKucaId, Z.IdZ AS ZanrId, dbo.BrojPesamaIzdavackeKucePoZanru(I.IdK, Z.IdZ) AS BrojPesama
+FROM IzdavackaKuca I
+CROSS JOIN Zanr Z

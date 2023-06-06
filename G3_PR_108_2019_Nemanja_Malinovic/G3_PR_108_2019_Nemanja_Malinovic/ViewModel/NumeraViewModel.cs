@@ -72,11 +72,6 @@ namespace G3_PR_108_2019_Nemanja_Malinovic.ViewModel
                         .Where(iz => iz.IdZ == IzabraniZanr.IdZ)
                         .Select(iz => iz.IdNum)
                         .ToList();
-                    //var numere = context.Numeras.Where(n => pesme.Contains(n.IdNum)).ToList();
-
-
-
-
                     var numere = context.Numeras.ToList();
                     var numere2 = new List<Numera>();
                     foreach (var i in numere)

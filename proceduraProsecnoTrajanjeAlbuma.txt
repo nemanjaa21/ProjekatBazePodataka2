@@ -1,0 +1,15 @@
+CREATE PROCEDURE PrikaziProsecanoTrajanjeAlbuma
+    @IzdavackaKucaId INT
+AS
+BEGIN
+    DECLARE @ProsecanTrajanje TIME;
+
+    SELECT @ProsecanTrajanje = CONVERT(TIME, DATEADD(SECOND, AVG(DATEDIFF(SECOND, '00:00:00', TrajanjeM)), '00:00:00'), 108)
+    FROM MuzickiAlbum
+    WHERE IdK = @IzdavackaKucaId;
+
+    PRINT 'Prosečno trajanje albuma u izdavačkoj kući: ' + CONVERT(VARCHAR(8), @ProsecanTrajanje, 108);
+END
+
+
+EXEC PrikaziProsecanoTrajanjeAlbuma @IzdavackaKucaId = 1;

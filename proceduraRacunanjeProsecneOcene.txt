@@ -1,0 +1,12 @@
+CREATE PROCEDURE ProsečnaOcenaNumere
+AS
+BEGIN
+    SELECT IdNum, AVG(Ocena) AS ProsečnaOcena
+    FROM Numera
+    GROUP BY IdNum
+END
+
+EXEC ProsečnaOcenaNumere;
+
+DROP PROCEDURE IF EXISTS ProsečnaOcenaNumere;
+

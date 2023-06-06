@@ -1,0 +1,7 @@
+CREATE INDEX IX_Numera_NazivN
+ON Numera(NazivN);
+
+
+SELECT *
+FROM Numera
+WHERE NazivN = 'Numera1';

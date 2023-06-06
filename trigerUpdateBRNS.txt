@@ -1,0 +1,33 @@
+CREATE TRIGGER UpdateBrNS
+ON Numera
+AFTER INSERT, DELETE
+AS
+BEGIN
+    -- Provera da li je insert operacija
+    IF EXISTS (SELECT * FROM inserted)
+    BEGIN
+        DECLARE @IdIzv INT;
+
+        -- Dobavljanje Id-a solo izvodjaca od insertovanih redova
+        SELECT @IdIzv = IdIzv
+        FROM inserted;
+
+        -- Azuriraj brojac BrNs za solo izvodjaca
+        UPDATE SoloIzvodjac
+        SET BrNS = BrNS + 1
+        WHERE IdIzv = @IdIzv;
+    END
+    ELSE -- It is a DELETE operation
+    BEGIN
+       
+
+        -- Dobavljanje Id-a solo izvodjaca od obrisanih redova
+        SELECT @IdIzv = IdIzv
+        FROM deleted;
+
+        -- Azuriraj brojac BrNs za solo izvodjaca
+        UPDATE SoloIzvodjac
+        SET BrNS = BrNS - 1
+        WHERE IdIzv = @IdIzv;
+    END;
+END;
