@@ -1,4 +1,5 @@
 ﻿using G3_PR_108_2019_Nemanja_Malinovic.Models;
+using G3_PR_108_2019_Nemanja_Malinovic.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace G3_PR_108_2019_Nemanja_Malinovic
     public partial class MainWindow : Window
     {
         private Baze2Context context = new Baze2Context();
-
+        private NumeraViewModel numeraViewModel;
         private CollectionViewSource korisnikViewSource = new CollectionViewSource();
 
         private CollectionViewSource playListViewSource = new CollectionViewSource();
@@ -57,6 +58,7 @@ namespace G3_PR_108_2019_Nemanja_Malinovic
             zanrViewSource = (CollectionViewSource)FindResource(nameof(zanrViewSource));
             sadrziPlayNumViewSource = (CollectionViewSource)FindResource(nameof(sadrziPlayNumViewSource));
             imaZanrViewSource = (CollectionViewSource)FindResource(nameof(imaZanrViewSource));
+            numeraViewModel = (NumeraViewModel)Resources["NumeraViewModelResource"];
 
         }
 

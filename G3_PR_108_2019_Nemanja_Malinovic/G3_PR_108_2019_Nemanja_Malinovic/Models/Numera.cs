@@ -26,4 +26,8 @@ public partial class Numera
     public virtual ICollection<ImaZanr> ImaZanrs { get; set; } = new List<ImaZanr>();
 
     public virtual ICollection<SadrziPlayNum> SadrziPlayNums { get; set; } = new List<SadrziPlayNum>();
+    public override string ToString()
+    {
+        return NazivN;
+    }
 }

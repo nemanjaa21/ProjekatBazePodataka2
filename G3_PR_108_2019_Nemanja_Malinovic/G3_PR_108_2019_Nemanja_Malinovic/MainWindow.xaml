@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:G3_PR_108_2019_Nemanja_Malinovic"
+        xmlns:vm="clr-namespace:G3_PR_108_2019_Nemanja_Malinovic.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="950" Loaded="Window_Loaded" Closing="Window_Closing">
     <Window.Resources>
@@ -19,8 +20,9 @@
         <CollectionViewSource x:Key="zanrViewSource"/>
         <CollectionViewSource x:Key="sadrziPlayNumViewSource"/>
         <CollectionViewSource x:Key="imaZanrViewSource"/>
+        <vm:NumeraViewModel x:Key="NumeraViewModelResource" />
     </Window.Resources>
-
+   
     <Grid>
         <TabControl>
             <TabItem Header="Korisnici">
@@ -206,6 +208,16 @@
             </TabItem>
             
         </TabControl>
+
+        <ComboBox ItemsSource="{Binding Source={StaticResource NumeraViewModelResource}, Path=Zanrovi}"
+          SelectedItem="{Binding Source={StaticResource NumeraViewModelResource}, Path=IzabraniZanr}"
+                  Width="200" Height="30" Margin="22,239,728,165"/>
+
+        <ListBox ItemsSource="{Binding Source={StaticResource NumeraViewModelResource}, Path=Pesme}"
+         DisplayMemberPath="NazivN"
+                 Width="200" Height="100" Margin="22,287,728,47"/>
+
+
         <Button Content="Snimanje" 
                 HorizontalAlignment="Right" VerticalAlignment="Bottom" 
                 Height="20" Width="80" Margin="10,10,10,10" Click="Button_Click"/>

@@ -12,4 +12,9 @@ public partial class Zanr
     public string? Vek { get; set; }
 
     public virtual ICollection<ImaZanr> ImaZanrs { get; set; } = new List<ImaZanr>();
+
+    public override string ToString()
+    {
+        return ImeZ;
+    }
 }
