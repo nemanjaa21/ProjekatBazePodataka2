@@ -24,11 +24,6 @@ VALUES (1, 5);
 INSERT INTO Grupa (IdIzv, BrNG)
 VALUES (2, 4);
 
-INSERT INTO Clan (IdCl, Uloga, IdIzv)
-VALUES (1, 'Uloga1', 4),
-(2, 'Uloga2', 4),
-(3, 'Uloga3', 5);
-
 INSERT INTO Zanr (IdZ, ImeZ, Vek)
 VALUES (1, 'Zanr1', 'XX vek'),
 (2, 'Zanr2', 'XXI vek'),
